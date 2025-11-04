@@ -1,7 +1,6 @@
 using System.Collections;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody))]
 public class BulletsSpawner : MonoBehaviour
 {
     [SerializeField] private Bullet _prefab;
@@ -16,14 +15,16 @@ public class BulletsSpawner : MonoBehaviour
 
     private IEnumerator ShootingWorker()
     {
+        var waitShooting = new WaitForSeconds(_timeWaitShooting);
+
         while (enabled)
         {
             Vector3 bulletDirection = (_objectToShoot.position - transform.position).normalized;
             Bullet newBullet = Instantiate(_prefab, transform.position + bulletDirection, Quaternion.identity);
 
-            newBullet.GetComponent<Bullet>().Initialization(bulletDirection, _bulletSpeed);
+            newBullet.Initialization(bulletDirection, _bulletSpeed);
 
-            yield return new WaitForSeconds(_timeWaitShooting);
+            yield return waitShooting;
         }
     }
 }

@@ -20,10 +20,10 @@ public class Patroller : MonoBehaviour
 
     private void Update()
     {
-        Transform pointByNumberInArray = _places[_placeIndex];
-        transform.position = Vector3.MoveTowards(transform.position, pointByNumberInArray.position, _speed * Time.deltaTime);
+        Transform target = _places[_placeIndex];
+        transform.position = Vector3.MoveTowards(transform.position, target.position, _speed * Time.deltaTime);
 
-        if (transform.position == pointByNumberInArray.position)
+        if (transform.position == target.position)
         {
             TakerNextPlaceLogic();
         }
